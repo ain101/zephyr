@@ -28,6 +28,7 @@
 		sw0 = &button0;
 		i2c-0 = &i2c0;
 		watchdog0 = &wdt0;
+		led0 = &led0;
 	};
 
 	gpio_keys {
@@ -36,6 +37,14 @@
 			label = "BTN";
 			gpios = <&gpio0 3 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 			zephyr,code = <INPUT_KEY_0>;
+		};
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		led0: led_0 {
+			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
+			label = "LED 0";
 		};
 	};
 };
@@ -79,7 +88,8 @@
 };
 
 &timer0 {
-	status = "disabled";
+	status = "okay";
+	prescaler = <10>;
 };
 
 &timer1 {
