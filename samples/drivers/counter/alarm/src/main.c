@@ -12,7 +12,7 @@
 #include <zephyr/drivers/gpio.h>
 
 // #define DELAY 2000000
-#define DELAY 200000
+#define DELAY 200
 #define ALARM_CHANNEL_ID 0
 
 struct counter_alarm_cfg alarm_cfg;
@@ -94,10 +94,10 @@ static void test_counter_interrupt_fn(const struct device *counter_dev,
 	}
 
 
-	printk("Set alarm in %u sec (%u ticks)\n",
-	       (uint32_t)(counter_ticks_to_us(counter_dev,
-					   config->ticks) / USEC_PER_SEC),
-	       config->ticks);
+	// printk("Set alarm in %u sec (%u ticks)\n",
+	//        (uint32_t)(counter_ticks_to_us(counter_dev,
+	// 				   config->ticks) / USEC_PER_SEC),
+	//        config->ticks);
 
 	err = counter_set_channel_alarm(counter_dev, ALARM_CHANNEL_ID,
 					user_data);
