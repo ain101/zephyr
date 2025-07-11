@@ -73,6 +73,8 @@ struct counter_alarm_cfg alarm_cfg;
 #define LED0_NODE DT_ALIAS(led0)
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
+struct counter_top_cfg top_cfg;
+
 static void test_counter_interrupt_fn(const struct device *counter_dev,
 				      uint8_t chan_id, uint32_t ticks,
 				      void *user_data)
@@ -99,6 +101,12 @@ static void test_counter_interrupt_fn(const struct device *counter_dev,
 	//        (uint32_t)(counter_ticks_to_us(counter_dev,
 	// 				   config->ticks) / USEC_PER_SEC),
 	//        config->ticks);
+
+	top_cfg.flags = 0;
+	top_cfg.ticks = counter_us_to_ticks(counter_dev, 997);
+	top_cfg.callback = test_counter_interrupt_fn;
+	top_cfg.user_data = &top_cfg;
+	counter_set_top_value(counter_dev, &top_cfg);
 
 	err = counter_set_channel_alarm(counter_dev, ALARM_CHANNEL_ID,
 					user_data);
