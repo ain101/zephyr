@@ -10,7 +10,8 @@
 #include <zephyr/drivers/counter.h>
 #include <zephyr/sys/printk.h>
 
-#define DELAY 2000000
+// #define DELAY 2000000
+#define DELAY 200000
 #define ALARM_CHANNEL_ID 0
 
 struct counter_alarm_cfg alarm_cfg;
@@ -61,6 +62,8 @@ struct counter_alarm_cfg alarm_cfg;
 #define TIMER DT_NODELABEL(counter0)
 #elif defined(CONFIG_COUNTER_RENESAS_RZ_GTM)
 #define TIMER DT_INST(0, renesas_rz_gtm_counter)
+#elif defined CONFIG_SOC_SERIES_ESP32C3
+#define TIMER DT_NODELABEL(timer0)
 #else
 #error Unable to find a counter device node in devicetree
 #endif
@@ -92,7 +95,7 @@ static void test_counter_interrupt_fn(const struct device *counter_dev,
 	printk("Now: %u\n", now_sec);
 
 	/* Set a new alarm with a double length duration */
-	config->ticks = config->ticks * 2U;
+	// config->ticks = config->ticks * 2U;
 
 	printk("Set alarm in %u sec (%u ticks)\n",
 	       (uint32_t)(counter_ticks_to_us(counter_dev,
