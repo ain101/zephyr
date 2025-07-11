@@ -11,9 +11,9 @@
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
 
-// #define DELAY 2000000
+#define DELAY 2000000
 // #define DELAY 200
-#define DELAY 1000
+// #define DELAY 1000
 #define ALARM_CHANNEL_ID 0
 
 struct counter_alarm_cfg alarm_cfg;
@@ -114,7 +114,7 @@ static void test_counter_interrupt_fn(const struct device *counter_dev,
 		printk("Alarm could not be set\n");
 	}
 
-	// printk("test_counter_interrupt_fn\n");
+	printk("test_counter_interrupt_fn\n");
 
 	ret = gpio_pin_toggle_dt(&led);
 	if (ret < 0) {
