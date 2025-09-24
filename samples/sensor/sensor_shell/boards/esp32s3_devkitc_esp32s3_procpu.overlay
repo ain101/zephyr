@@ -1,0 +1,19 @@
+&spi2 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	pinctrl-0 = <&spim2_default>;
+	pinctrl-names = "default";
+
+	cs-gpios = <&gpio0 10 GPIO_ACTIVE_LOW>; // CS0; chip select for first  node reg = <0>
+
+	// Motion
+	icm45686: icm45686@0 {
+		status = "okay";
+		compatible = "invensense,icm45686";
+		reg = <0>;//TODO?
+		spi-max-frequency = <48000000>;
+
+		int-gpios = <&gpio0 47 GPIO_ACTIVE_LOW>; // INT1
+	};
+};
